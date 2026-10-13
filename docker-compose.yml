@@ -1,17 +1,16 @@
-version: '3.8'
-
 services:
   server:
     image: codeberg.org/forgejo/forgejo:9
     container_name: forgejo
     environment:
-      - USER_UID=1000
-      - USER_GID=1000
-      - FORGEJO__database__DB_TYPE=postgres
-      - FORGEJO__database__HOST=db:5432
-      - FORGEJO__database__NAME=forgejo
-      - FORGEJO__database__USER=forgejo
-      - FORGEJO__database__PASSWD=forgejo_password
+      USER_UID: ${FORGEJO_UID:?Define FORGEJO_UID en .env}
+      USER_GID: ${FORGEJO_GID:?Define FORGEJO_GID en .env}
+      FORGEJO__database__DB_TYPE: postgres
+      FORGEJO__database__HOST: db:${POSTGRES_PORT:?Define POSTGRES_PORT en .env}
+      FORGEJO__database__NAME: ${POSTGRES_DB:?Define POSTGRES_DB en .env}
+      FORGEJO__database__USER: ${POSTGRES_USER:?Define POSTGRES_USER en .env}
+      FORGEJO__database__PASSWD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      FORGEJO__server__SSH_PORT: ${FORGEJO_SSH_PORT:?Define FORGEJO_SSH_PORT en .env}
     restart: always
     networks:
       - forgejo-net
@@ -20,8 +19,8 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "3000:3000"
-      - "2222:22"
+      - "${FORGEJO_HTTP_PORT:?Define FORGEJO_HTTP_PORT en .env}:3000"
+      - "${FORGEJO_SSH_PORT:?Define FORGEJO_SSH_PORT en .env}:22"
     depends_on:
       - db
 
@@ -30,9 +29,9 @@ services:
     container_name: forgejo-db
     restart: always
     environment:
-      - POSTGRES_USER=forgejo
-      - POSTGRES_PASSWORD=forgejo_password
-      - POSTGRES_DB=forgejo
+      POSTGRES_USER: ${POSTGRES_USER:?Define POSTGRES_USER en .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      POSTGRES_DB: ${POSTGRES_DB:?Define POSTGRES_DB en .env}
     networks:
       - forgejo-net
     volumes:
