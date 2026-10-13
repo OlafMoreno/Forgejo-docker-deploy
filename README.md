@@ -1,4 +1,4 @@
-# Alternatic Forgejo
+# Forgejo
 
 Este repositorio configura una instancia propia de [Forgejo](https://forgejo.org/), una plataforma para alojar repositorios Git y colaborar en ellos. Docker Compose ejecuta Forgejo y PostgreSQL; los datos de ambos servicios se guardan en el equipo anfitrión.
 
