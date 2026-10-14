@@ -11,6 +11,8 @@ services:
       FORGEJO__database__USER: ${POSTGRES_USER:?Define POSTGRES_USER en .env}
       FORGEJO__database__PASSWD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
       FORGEJO__server__SSH_PORT: ${FORGEJO_SSH_PORT:?Define FORGEJO_SSH_PORT en .env}
+      FORGEJO__server__DOMAIN: ${FORGEJO_DOMAIN:?Define FORGEJO_DOMAIN en .env}
+      FORGEJO__server__ROOT_URL: ${FORGEJO_ROOT_URL:?Define FORGEJO_ROOT_URL en .env}
       FORGEJO__service__REQUIRE_SIGNIN_VIEW: ${FORGEJO_REQUIRE_SIGNIN_VIEW:?Define FORGEJO_REQUIRE_SIGNIN_VIEW en .env}
       FORGEJO__server__LANDING_PAGE: ${FORGEJO_LANDING_PAGE:?Define FORGEJO_LANDING_PAGE en .env}
     restart: always
